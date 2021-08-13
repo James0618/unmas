@@ -1,0 +1,123 @@
+[INFO 14:11:34] pymarl Running command 'my_main'
+[INFO 14:11:34] pymarl Started run with ID "17"
+[DEBUG 14:11:34] my_main Started
+[INFO 14:11:34] my_main Experiment Parameters:
+[INFO 14:11:34] my_main 
+
+{   'action_selector': 'epsilon_greedy',
+    'agent': 'unmas',
+    'agent_output_type': 'q',
+    'batch_size': 1,
+    'batch_size_run': 1,
+    'buffer_cpu_only': True,
+    'buffer_size': 5000,
+    'checkpoint_path': 'results/models/unmas__2021-08-01_09-04-43',
+    'critic_lr': 0.0005,
+    'double_q': True,
+    'env': 'sc2',
+    'env_args': {   'continuing_episode': False,
+                    'debug': False,
+                    'difficulty': '7',
+                    'game_version': None,
+                    'heuristic_ai': False,
+                    'heuristic_rest': False,
+                    'map_name': '3s5z_vs_3s6z',
+                    'move_amount': 2,
+                    'obs_all_health': True,
+                    'obs_instead_of_state': False,
+                    'obs_last_action': False,
+                    'obs_own_health': True,
+                    'obs_pathing_grid': False,
+                    'obs_terrain_height': False,
+                    'obs_timestep_number': False,
+                    'replay_dir': '',
+                    'replay_prefix': '',
+                    'reward_death_value': 10,
+                    'reward_defeat': 0,
+                    'reward_negative_scale': 0.5,
+                    'reward_only_positive': True,
+                    'reward_scale': True,
+                    'reward_scale_rate': 20,
+                    'reward_sparse': False,
+                    'reward_win': 200,
+                    'seed': 201416774,
+                    'state_last_action': True,
+                    'state_timestep_number': False,
+                    'step_mul': 8},
+    'epsilon_anneal_time': 50000,
+    'epsilon_finish': 0.05,
+    'epsilon_start': 1.0,
+    'evaluate': False,
+    'gamma': 0.99,
+    'grad_norm_clip': 10,
+    'hypernet_embed': 64,
+    'hypernet_layers': 2,
+    'label': 'default_label',
+    'learner': 'q_learner_critic',
+    'learner_log_interval': 10000,
+    'load_step': 0,
+    'local_results_path': 'results',
+    'log_interval': 10000,
+    'lr': 0.0005,
+    'mac': 'basic_mac',
+    'mixer': 'unmas_sum',
+    'mixing_embed_dim': 32,
+    'name': 'unmas',
+    'obs_agent_id': True,
+    'obs_last_action': True,
+    'optim_alpha': 0.99,
+    'optim_eps': 1e-05,
+    'repeat_id': 1,
+    'rnn_hidden_dim': 64,
+    'runner': 'episode',
+    'runner_log_interval': 10000,
+    'save_model': False,
+    'save_model_interval': 2000000,
+    'save_replay': False,
+    'seed': 201416774,
+    't_max': 2050000,
+    'target_update_interval': 200,
+    'test_greedy': True,
+    'test_interval': 10000,
+    'test_nepisode': 1,
+    'use_cuda': True,
+    'use_tensorboard': False}
+
+[INFO 14:11:38] my_main Loading model from results/models/unmas__2021-08-01_09-04-43/2000085
+[INFO 14:11:38] absl Launching SC2: /home/drl/StarCraftII/Versions/Base70154/SC2_x64 -listen 127.0.0.1 -port 16362 -dataDir /home/drl/StarCraftII/ -tempDir /tmp/sc-eive0try/
+Version: B70154 (SC2.4.7)
+Build: Nov 13 2018 17:24:19
+Command Line: '"/home/drl/StarCraftII/Versions/Base70154/SC2_x64" -listen 127.0.0.1 -port 16362 -dataDir /home/drl/StarCraftII/ -tempDir /tmp/sc-eive0try/'
+[INFO 14:11:38] absl Connecting to: ws://127.0.0.1:16362/sc2api, attempt: 0, running: True
+Starting up...
+Startup Phase 1 complete
+[INFO 14:11:39] absl Connecting to: ws://127.0.0.1:16362/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Creating stub renderer...
+[INFO 14:11:40] absl Connecting to: ws://127.0.0.1:16362/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:16362
+Startup Phase 3 complete. Ready for commands.
+[INFO 14:11:41] absl Connecting to: ws://127.0.0.1:16362/sc2api, attempt: 3, running: True
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Entering load game phase.
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Sending ResponseJoinGame
+[INFO 14:11:51] absl Replay saved at: /home/drl/StarCraftII/Replays/3s5z_vs_3s6z_2021-08-03-06-11-51.SC2Replay
+RequestQuit command received.
+Closing Application...
+unable to parse websocket frame.
+[INFO 14:11:51] absl Shutdown gracefully.
+[INFO 14:11:51] absl Shutdown with return code: -15

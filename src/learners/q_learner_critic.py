@@ -40,6 +40,7 @@ class QLearner:
         mask = batch["filled"][:, :-1].float()
         mask[:, 1:] = mask[:, 1:] * (1 - terminated[:, :-1])
         avail_actions = batch["avail_actions"]
+        is_alive = (1 - batch["avail_actions"][:, :, :, 0]).type(th.float)
 
         # Calculate estimated Q-Values
         mac_out = []
@@ -51,34 +52,6 @@ class QLearner:
 
         # Pick the Q-Values for the actions taken by each agent
         chosen_action_qvals = th.gather(mac_out[:, :-1], dim=3, index=actions).squeeze(3)  # Remove the last dim
-
-        terminated_t = float(terminated[0].squeeze().nonzero().squeeze())
-        test_action_qvals = chosen_action_qvals[0]
-
-        ones_0 = th.zeros(test_action_qvals.shape).cuda()
-        ones_0[:, 0] = th.ones(test_action_qvals.shape[0]).cuda() * 0.001
-        ones_1 = th.zeros(test_action_qvals.shape).cuda()
-        ones_1[:, 1] = th.ones(test_action_qvals.shape[0]).cuda() * 0.001
-        ones_2 = th.zeros(test_action_qvals.shape).cuda()
-        ones_2[:, 2] = th.ones(test_action_qvals.shape[0]).cuda() * 0.001
-
-        joint_qvals_00 = self.mixer(test_action_qvals + ones_0, batch["state"][0, :-1], batch["obs"][0, :-1])
-        joint_qvals_01 = self.mixer(test_action_qvals - ones_0, batch["state"][0, :-1], batch["obs"][0, :-1])
-
-        joint_qvals_10 = self.mixer(test_action_qvals + ones_1, batch["state"][0, :-1], batch["obs"][0, :-1])
-        joint_qvals_11 = self.mixer(test_action_qvals - ones_1, batch["state"][0, :-1], batch["obs"][0, :-1])
-
-        joint_qvals_20 = self.mixer(test_action_qvals + ones_2, batch["state"][0, :-1], batch["obs"][0, :-1])
-        joint_qvals_21 = self.mixer(test_action_qvals - ones_2, batch["state"][0, :-1], batch["obs"][0, :-1])
-
-        gradient_0 = (joint_qvals_00 - joint_qvals_01) / 0.002
-        gradient_1 = (joint_qvals_10 - joint_qvals_11) / 0.002
-        gradient_2 = (joint_qvals_20 - joint_qvals_21) / 0.002
-
-        gradient = th.cat((gradient_0, gradient_1, gradient_2), dim=1).detach().cpu().numpy()
-        states = batch["state"][0, :-1].cpu().numpy()
-        import numpy as np
-        np.save('test.npy', gradient)
 
         # Calculate the Q-Values necessary for the target
         target_mac_out = []
@@ -105,8 +78,10 @@ class QLearner:
 
         # Mix
         if self.mixer is not None:
-            chosen_action_qvals = self.mixer(chosen_action_qvals, batch["state"][:, :-1], batch["obs"][:, :-1])
-            target_max_qvals = self.target_mixer(target_max_qvals, batch["state"][:, 1:], batch["obs"][:, 1:])
+            chosen_action_qvals = self.mixer(chosen_action_qvals, batch["state"][:, :-1], batch["obs"][:, :-1],
+                                             is_alive[:, :-1])
+            target_max_qvals = self.target_mixer(target_max_qvals, batch["state"][:, 1:], batch["obs"][:, 1:],
+                                                 is_alive[:, 1:])
 
         # Calculate 1-step Q-Learning targets
         targets = rewards + self.args.gamma * (1 - terminated) * target_max_qvals

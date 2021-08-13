@@ -1,0 +1,1 @@
+[INFO 15:14:04] pymarl Running command 'my_main'

@@ -24,3 +24,4 @@ hypernet_embed: 64
 
 agent: "unmas"
 name: "unmas"
+weight: "normal"
