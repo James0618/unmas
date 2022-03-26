@@ -10,4 +10,5 @@ REGISTRY = {}
 REGISTRY["sc2"] = partial(env_fn, env=StarCraft2Env)
 
 if sys.platform == "linux":
-    os.environ.setdefault("SC2PATH", "~/StarCraftII")
+    os.environ.setdefault("SC2PATH", "/home/user/StarCraftII")
+    # os.environ.setdefault("SC2PATH", "/home/drl/StarCraftII")

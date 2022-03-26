@@ -36,7 +36,7 @@ The requirements.txt file can be used to install the necessary packages into a v
 ## Run an experiment 
 
 ```shell
-python3 src/main.py --config=unmas --env-config=sc2 with env_args.map_name=2s3z seed=769090355
+python3 src/main.py --config=unmas --env-config=sc2 with env_args.map_name=2s3z use_tensorborad=True
 ```
 
 The config files act as defaults for an algorithm or environment. 
@@ -44,11 +44,6 @@ The config files act as defaults for an algorithm or environment.
 They are all located in `src/config`.
 `--config` refers to the config files in `src/config/algs`
 `--env-config` refers to the config files in `src/config/envs`
-
-To run experiments using the Docker container:
-```shell
-bash run.sh $GPU python3 src/main.py --config=unmas --env-config=sc2 with env_args.map_name=2s3z seed=769090355
-```
 
 All results will be stored in the `Results` folder.
 

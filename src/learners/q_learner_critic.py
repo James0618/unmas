@@ -40,7 +40,8 @@ class QLearner:
         mask = batch["filled"][:, :-1].float()
         mask[:, 1:] = mask[:, 1:] * (1 - terminated[:, :-1])
         avail_actions = batch["avail_actions"]
-        is_alive = (1 - batch["avail_actions"][:, :, :, 0]).type(th.float)
+        # is_alive = (1 - batch["avail_actions"][:, :, :, 0].type(th.float) * min(2 * t_env / self.args.t_max, 1))
+        is_alive = (1 - batch["avail_actions"][:, :, :, 0].type(th.float))
 
         # Calculate estimated Q-Values
         mac_out = []
