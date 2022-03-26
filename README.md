@@ -39,7 +39,7 @@ The requirements.txt file can be used to install the necessary packages into a v
 python3 src/main.py --config=unmas --env-config=sc2 with env_args.map_name=2s3z use_tensorborad=True
 ```
 
-**The experimental results on 3s5z_vs_3s6z are more susceptible to the random seeds, and the average winning rate will tend to be stable after multiple experiments. **
+**The experimental results on 3s5z_vs_3s6z are more susceptible to the random seeds, and the average winning rate will tend to be stable after multiple experiments.**
 
 The config files act as defaults for an algorithm or environment. 
 
